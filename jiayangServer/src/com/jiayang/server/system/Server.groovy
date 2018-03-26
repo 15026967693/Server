@@ -15,6 +15,7 @@ def static startServer() {
 	serverSocketChannel.bind(new InetSocketAddress("localhost",port))
 	def Selector selector=Selector.open()
 	serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+	sessionClear()
 	while(selector.select()>0)
 	{
 		def Iterator<SelectionKey> it=selector.selectedKeys().iterator()
@@ -34,5 +35,17 @@ def static startServer() {
 			it.remove()
 		}
 	}
+	}
+	def static sessionClear()
+	{
+		new Timer().schedule({
+			->
+			for(s in App.session.keySet())
+			{
+				if(App.session[s]["invalidTime"]<new Date().getTime())
+					App.session.remove(s)
+				}
+				println "clear session"
+			},0,1000*60*30);
 	}
 }

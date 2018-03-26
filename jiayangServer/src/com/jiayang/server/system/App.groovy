@@ -6,8 +6,10 @@ import java.nio.channels.Selector
 class App {
 def static String staticPath=""
 def static chain=[]
+def static WeakHashMap session=[:] 
 def index=0
 def static global=[:]
+def static ENCODING="UTF-8"
 def data=[:]
 def Request request
 def Response response

@@ -19,21 +19,19 @@ class CustomThread extends Thread{
 					def SelectionKey key=it.next()
 					if(key.isReadable())
 					{
+						if(!app.request)
 						app.request=new Request(key)
-						if(app.request&&app.response)
-						{
-							app.next()
-							
-						}
+						app.request.app=app
 					}
 					if(key.isWritable())
 					{
+						if(!app.response)
 						app.response=new Response(key)
 						app.response.app=app
 						if(app.request&&app.response)
 						{	
 							app.next()
-							
+							this.interrupted()
 						}
 					}
 					it.remove()
