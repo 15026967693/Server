@@ -22,12 +22,14 @@ class Response {
 	def text(String s)
 	{
 		def reschar="HTTP/1.1 200 ok ${LINE_END}"
+		headers["Content-Type"]="text/plain;charset=UTF-8"
 		headers.each{
 			key,val->
 			reschar+="${key}:${val}${LINE_END}"
 		}
 		reschar+=s+ALL_END
-		this.socketChannel.write(ByteBuffer.wrap(s.getBytes()))
+		reschar+=s
+		this.socketChannel.write(ByteBuffer.wrap(reschar.getBytes()))
 		end()
 	}
 	def writeBytes(bytes)
@@ -41,7 +43,7 @@ class Response {
 	def render(model,String path)
 	{
 		
-		def String s=this.class.getResource(App.staticPath+path).text
+		def String s=this.class.getResource(path).text
 		
 		def engine = new StreamingTemplateEngine()
 		def template = engine.createTemplate(s).make(model)

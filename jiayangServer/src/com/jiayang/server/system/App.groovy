@@ -4,7 +4,7 @@ import javax.script.ScriptEngineManager
 import org.codehaus.groovy.runtime.GStringImpl
 import java.nio.channels.Selector
 class App {
-def static String staticPath=""
+def static String staticPath="/public"
 def static chain=[]
 def static WeakHashMap session=[:] 
 def index=0

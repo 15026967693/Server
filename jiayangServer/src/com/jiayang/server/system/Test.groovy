@@ -10,6 +10,7 @@ class Test {
 def static main(args)
 {
 	def app=new App()
+	app.use(new StaticResolver())
 	app.use("/",{req,res,next->
 		res.text("hello")
 		
@@ -32,6 +33,7 @@ def static main(args)
 		res.render(null,"/fileupload.html")
 	})
 	app.use("/upload",{req,res,next->
+		res.text("提交成功")
 		res.end()
 	})
 	Server.startServer()

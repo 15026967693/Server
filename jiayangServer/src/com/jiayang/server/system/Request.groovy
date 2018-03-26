@@ -122,8 +122,6 @@ def resolveBody(ByteBuffer byteBuffer,SocketChannel socketChannel)
 				this.requestUrl=this.requestUrl.split("\\?")[0]
 			}
 	        this.httpVersion=matcher[0][3]
-			println this.requestUrl
-			println this.requestParams
 		}
 	}
 	def  resolveByte(ArrayList temp,String boundary)
